@@ -9,7 +9,7 @@ Start with docker:
 
 `docker build -t ochat .`
 
-`docker run -dp 127.0.0.1:3000:3000 -p 127.0.0.1:3001:3001 ochat`
+`docker run -d -p 3000:3000 -p 3001:3001 ochat`
 
 
-If needed, change ports and environment variables in Dockerfile.
+If needed, change ports and other environment variables in Dockerfile.

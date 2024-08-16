@@ -1,0 +1,36 @@
+{
+  "name": "ochat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts --esm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ouzii/ochat.git"
+  },
+  "author": "Oskari Laaja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ouzii/ochat/issues"
+  },
+  "homepage": "https://github.com/Ouzii/ochat#readme",
+  "dependencies": {
+    "@types/websocket": "^1.0.10",
+    "@types/ws": "^8.5.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "websocket": "^1.0.35",
+    "ws": "^8.18.0"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.3.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,12 @@
+.inputArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    input,
+    textarea,
+    label {
+        margin-bottom: 6px;
+    }
+}

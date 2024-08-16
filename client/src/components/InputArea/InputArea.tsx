@@ -1,3 +1,4 @@
+import "./InputArea.css"
 import { FormEvent, useState } from "react";
 import { CirclePicker } from "react-color";
 

@@ -1,0 +1,17 @@
+ul {
+    list-style-type: none;
+}
+
+.messageArea {
+    height: 50vh;
+    overflow-y: auto;
+    border: 2px solid darkblue;
+    color: cornflowerblue;
+    font-weight: 600;
+    text-align: left;
+    margin: 10px;
+    border-radius: 12px;
+    list-style-type: none;
+    flex-direction: column-reverse;
+    display: flex;
+}

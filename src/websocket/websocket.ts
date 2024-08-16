@@ -1,23 +1,28 @@
 
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 
 const startWebSocketServer = (port: number) => {
   const wsServer = new WebSocketServer({ port }, () => {
     console.log(`Websocket started on port ${port}`);
   });
 
-  wsServer.on('connection', (ws) => {
+  wsServer.on('connection', (ws, req) => {
+    console.log(wsServer.clients.size);
+    
     ws.on('error', console.error);
 
     ws.on('message', (data) => {
-      wsServer.clients.forEach(client => {
+      const msg = JSON.parse(data.toString());
+      console.log(msg);
+      
+      wsServer.clients.forEach((client, index) => {
         if (client.readyState === WebSocket.OPEN) {
-          client.send(data);
+          client.send(JSON.stringify(msg));
         }
       });
     });
 
-    ws.send('something');
+    // ws.send();
   });
   
   return wsServer;

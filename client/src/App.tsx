@@ -1,24 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { CirclePicker, GithubPicker, SketchPicker } from 'react-color';
+import MessagesArea from './components/MessagesArea/MessagesArea';
+import InputArea from './components/InputArea/InputArea';
+export interface CustomMessage {
+  msg: string;
+  color: string;
+}
 
 const App = () => {
   const [connectionStatus, setConnectionStatus] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
-  const [username, setUsername] = useState<string>('Anon');
-  const [messages, setMessages] = useState<Array<{msg: string, color: string}>>([]);
-  const [color, setColor] = useState<string>('#2196f3')
+  const [messages, setMessages] = useState<Array<{ msg: string, color: string }>>([]);
 
   const ws = useRef<WebSocket>()
   useEffect(() => {
-    ws.current = new WebSocket('ws://localhost:4200')
+    ws.current = new WebSocket(`ws://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_WS_PORT}`)
     ws.current.addEventListener('open', () => {
       setConnectionStatus(true);
-      console.log(ws);
     })
     ws.current.addEventListener('message', (msg) => {
       const data = JSON.parse(msg.data)
-      setMessages((oldMessages) => [...oldMessages, {msg: `${data.user}: ${data.message}`, color: data.color}]);
+      setMessages((oldMessages) => [...oldMessages, { msg: `${data.user}: ${data.message}`, color: data.color }]);
     })
     ws.current.addEventListener('close', () => {
       setConnectionStatus(false);
@@ -30,29 +31,16 @@ const App = () => {
     }
   }, [])
 
-  const sendMessage = () => {
-    console.log(ws.current);
-    ws.current?.send(JSON.stringify({ user: username, message: inputValue, color: color }));
-    setInputValue('');
+  const sendMessage = (user: string, color: string, message: string) => {
+    ws.current?.send(JSON.stringify({ user, color, message }));
   }
 
   return (
     <div className='App'>
       Connected to WebSocket: {`${connectionStatus}`}
 
-      <div className='messageArea'>
-        <ul>
-          {messages.map((msg) => <li style={{color: msg.color}}>{msg.msg}</li>)}
-        </ul>
-      </div>
-      <form className='inputArea' onSubmit={(e) => { e.preventDefault(); sendMessage() }}>
-        <label>Username</label>
-        <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
-        <CirclePicker color={color} onChange={(c) => setColor(c.hex)}/>
-        <label>Message</label>
-        <textarea value={inputValue} rows={6} cols={24} onChange={(e) => setInputValue(e.target.value)}></textarea>
-        <input type='submit' value='Send' disabled={!connectionStatus}></input>
-      </form>
+      <MessagesArea messages={messages} />
+      <InputArea sendMessage={sendMessage} connected={connectionStatus} />
     </div>
   );
 }

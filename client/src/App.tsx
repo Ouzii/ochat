@@ -9,7 +9,7 @@ export interface CustomMessage {
 
 const App = () => {
   const [connectionStatus, setConnectionStatus] = useState<boolean>(false);
-  const [messages, setMessages] = useState<Array<{ msg: string, color: string }>>([]);
+  const [messages, setMessages] = useState<Array<CustomMessage>>([]);
 
   const ws = useRef<WebSocket>()
   useEffect(() => {

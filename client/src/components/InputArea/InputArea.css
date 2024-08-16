@@ -9,4 +9,9 @@
     label {
         margin-bottom: 6px;
     }
+
+    input[type='submit'] {
+        color: #fff;
+        border-radius: 6px;
+    }
 }

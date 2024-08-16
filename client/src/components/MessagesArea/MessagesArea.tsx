@@ -1,5 +1,5 @@
-import "./MessagesArea.css"
-import { CustomMessage } from "../../App"
+import './MessagesArea.css'
+import { CustomMessage } from '../../App'
 
 const MessagesArea = ({ messages }: { messages: CustomMessage[] }) => {
     return (

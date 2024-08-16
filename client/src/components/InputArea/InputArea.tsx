@@ -1,6 +1,6 @@
-import "./InputArea.css"
-import { FormEvent, useState } from "react";
-import { CirclePicker } from "react-color";
+import './InputArea.css'
+import { FormEvent, useState } from 'react';
+import { CirclePicker } from 'react-color';
 
 interface Props {
     sendMessage: Function;
@@ -23,7 +23,7 @@ const InputArea = ({ sendMessage, connected }: Props) => {
             <CirclePicker color={color} onChange={(c) => setColor(c.hex)} />
             <label>Message</label>
             <textarea value={message} rows={6} cols={24} onChange={(e) => setMessage(e.target.value)}></textarea>
-            <input type='submit' value='Send' disabled={!connected}></input>
+            <input type='submit' value='Send' style={{ backgroundColor: color }} disabled={!connected}></input>
         </form>
     );
 }
